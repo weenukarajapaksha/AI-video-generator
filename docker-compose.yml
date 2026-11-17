@@ -1,0 +1,7 @@
+# Local fake AWS. moto emulates S3, DynamoDB, SQS, Lambda, Step Functions, ...
+# Everything stays on your computer -> $0.
+services:
+  aws:
+    image: motoserver/moto:latest
+    ports:
+      - "5000:5000"
