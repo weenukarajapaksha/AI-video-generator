@@ -20,7 +20,7 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def create_job(idea: str, duration: int, user_id: str = "local-user") -> dict:
+def create_job(idea: str, duration: int, user_id: str = "local-user", **extra) -> dict:
     job = {
         "job_id": f"job_{uuid.uuid4().hex[:12]}",
         "user_id": user_id,
@@ -29,6 +29,7 @@ def create_job(idea: str, duration: int, user_id: str = "local-user") -> dict:
         "status": "queued",
         "created_at": _now(),
         "updated_at": _now(),
+        **extra,
     }
     db().Table(JOBS_TABLE).put_item(Item=job)
     return job

@@ -2,8 +2,14 @@
 
 Run:  python -m scripts.try_aws
 """
+from backend import config
 from backend.services import job_repository as jobs
 from backend.services import storage_service as storage
+
+print("Target:", config.describe_target())
+if not config.S3_BUCKET:
+    raise SystemExit("S3_BUCKET is empty - put your bucket name in .env.aws")
+print("Bucket:", config.S3_BUCKET, "| Tables:", config.JOBS_TABLE, config.SCENES_TABLE)
 
 # 1. DynamoDB: create a job
 job = jobs.create_job("How AI is changing education", duration=90)
